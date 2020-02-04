@@ -11,16 +11,29 @@ const List = ({ list, fetchUsers }) => {
   };
   const [state, setState] = useState(initialState);
 
+  const onPrevPage = useCallback(() => {
+    const start = (state.page - 2) * state.pageSize;
+    const end = start + state.pageSize;
+    setState({
+      ...initialState,
+      page: state.page - 1,
+      users: list.slice(start, end)
+    });
+  }, [list, state]);
+
   const onNextPage = useCallback(() => {
     const start = state.pageSize * state.page;
     const end = start + state.pageSize;
-
     setState({
       ...initialState,
       page: state.page + 1,
       users: list.slice(start, end)
     });
   }, [list, state]);
+
+  const hasNextPage = () => {
+    return Math.ceil(list.length / state.pageSize) > state.page;
+  };
 
   useEffect(() => {
     if (!list || !list.length) {
@@ -35,7 +48,19 @@ const List = ({ list, fetchUsers }) => {
   return (
     <div className="users-list-page">
       <UsersList list={state.users} />
-      <button onClick={() => onNextPage()}>Load Next</button>
+      {list && list.length && (
+        <div>
+          <button
+            onClick={() => onPrevPage()}
+            disabled={state.page && state.page < 2}
+          >
+            Load Prev Page
+          </button>
+          <button onClick={() => onNextPage()} disabled={!hasNextPage()}>
+            Load Next Page
+          </button>
+        </div>
+      )}
     </div>
   );
 };
