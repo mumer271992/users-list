@@ -11,7 +11,6 @@ export const fetchAndStoreUserslist = () => {
     return api.user
       .list()
       .then(resp => {
-        console.log(resp);
         if (resp) {
           dispatch(saveUsers(resp));
         }
