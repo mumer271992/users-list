@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import './App.scss';
-import List from './pages/Users/List/List';
+import List from './pages/Users/List/ListHOC';
 
 function App() {
   return (
