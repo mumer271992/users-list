@@ -42,7 +42,7 @@ describe('Users List component test', () => {
   it('should mount successfully', () => {
     expect(enzymeWrapper.length).toEqual(1);
   });
-  it('should render title properly', () => {
+  it('should render all list items', () => {
     const usersWrapper = enzymeWrapper.find('[data-test="users-list-item"]');
     expect(usersWrapper.length).toEqual(mockedUsersList.length);
   });

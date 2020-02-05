@@ -51,12 +51,17 @@ const List = ({ list, fetchUsers }) => {
       {list && list.length && (
         <div>
           <button
+            data-test="prev-btn"
             onClick={() => onPrevPage()}
             disabled={state.page && state.page < 2}
           >
             Load Prev Page
           </button>
-          <button onClick={() => onNextPage()} disabled={!hasNextPage()}>
+          <button
+            data-test="next-btn"
+            onClick={() => onNextPage()}
+            disabled={!hasNextPage()}
+          >
             Load Next Page
           </button>
         </div>
