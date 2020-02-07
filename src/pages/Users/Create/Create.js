@@ -33,42 +33,55 @@ const Create = ({ create }) => {
     create({ ...user }, onSuccess, onError);
   };
 
+  const mapInputFieldWithError = (inputField, key) => {
+    return (
+      <div>
+        {inputField}
+        <span>{errors && errors[key] && errors[key][0]}</span>
+      </div>
+    );
+  };
+
   return (
     <div className="create-user">
       <form onSubmit={handleSubmit}>
-        <pre>{JSON.stringify(errors)}</pre>
         <div>
           <label>First Name</label>
-          <input
-            placeholder="First Name"
-            value={user.first_name}
-            name="first_name"
-            onChange={handleChange}
-          />
-          <span>{errors && errors.first_name && errors.first_name[0]}</span>
+          {mapInputFieldWithError(
+            <input
+              placeholder="First Name"
+              value={user.first_name}
+              name="first_name"
+              onChange={handleChange}
+            />,
+            'first_name'
+          )}
         </div>
         <div>
           <label>Last Name</label>
-          <input
-            placeholder="Last Name"
-            name="last_name"
-            value={user.last_name}
-            onChange={handleChange}
-          />
-          <span>{errors && errors.last_name && errors.last_name[0]}</span>
+          {mapInputFieldWithError(
+            <input
+              placeholder="Last Name"
+              name="last_name"
+              value={user.last_name}
+              onChange={handleChange}
+            />,
+            'last_name'
+          )}
         </div>
         <div>
-          <label>
-            Status <span>{errors && errors.status && errors.status[0]}</span>
-          </label>
-          <select name="status" value={user.status} onChange={handleChange}>
-            {userStatuses &&
-              userStatuses.map(status => (
-                <option key={status} value={status}>
-                  {status}
-                </option>
-              ))}
-          </select>
+          <label>Status</label>
+          {mapInputFieldWithError(
+            <select name="status" value={user.status} onChange={handleChange}>
+              {userStatuses &&
+                userStatuses.map(status => (
+                  <option key={status} value={status}>
+                    {status}
+                  </option>
+                ))}
+            </select>,
+            'status'
+          )}
         </div>
         <button type="submit">Create User</button>
       </form>
