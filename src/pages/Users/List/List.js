@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 import UsersList from '../../../components/UsersList/UsersList';
 import Loader from '../../../components/Loader/Loader';
@@ -11,6 +12,7 @@ const initialState = {
 };
 
 const List = ({ list, loading, fetchUsers, update }) => {
+  const history = useHistory();
   const [state, setState] = useState(initialState);
 
   const onPrevPage = useCallback(() => {
@@ -53,6 +55,12 @@ const List = ({ list, loading, fetchUsers, update }) => {
     update(id, data);
   };
 
+  const editUser = data => {
+    console.log('Select user: ', data);
+    history.push(`/edit/${data.id}`);
+    // selectUser(data);
+  };
+
   useEffect(() => {
     if (!list || !list.length) {
       fetchUsers();
@@ -66,7 +74,11 @@ const List = ({ list, loading, fetchUsers, update }) => {
   return (
     <div className="users-list-page">
       {loading && <Loader />}
-      <UsersList list={state.users} updateStatus={updateStatus} />
+      <UsersList
+        list={state.users}
+        updateStatus={updateStatus}
+        onEdit={editUser}
+      />
       {list && list.length && (
         <div>
           <button

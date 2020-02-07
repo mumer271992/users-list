@@ -1,14 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import './Create.scss';
 
-const userStatuses = ['active', 'locked'];
-const Create = ({ create }) => {
+const Create = ({ list, create, update }) => {
   const history = useHistory();
+  const { userId } = useParams();
+
   const [user, setUser] = useState({
     first_name: '',
     last_name: '',
@@ -29,18 +30,38 @@ const Create = ({ create }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    e.stopPropagation();
-    create({ ...user }, onSuccess, onError);
+    if (user && user.id) {
+      update(user.id, { ...user }, onSuccess, onError);
+    } else {
+      create({ ...user }, onSuccess, onError);
+    }
   };
 
   const mapInputFieldWithError = (inputField, key) => {
     return (
       <div>
         {inputField}
-        <span>{errors && errors[key] && errors[key][0]}</span>
+        <span>
+          {errors && errors[key] && errors[key][0]
+            ? `${key} ${errors[key][0]}`
+            : ''}
+        </span>
       </div>
     );
   };
+
+  useEffect(() => {
+    if (userId) {
+      const targetUser = list.find(item => item.id === parseInt(userId, 10));
+      if (targetUser) {
+        setUser({
+          id: targetUser.id,
+          first_name: targetUser.first_name,
+          last_name: targetUser.last_name
+        });
+      }
+    }
+  }, [list, userId]);
 
   return (
     <div className="create-user">
@@ -69,32 +90,24 @@ const Create = ({ create }) => {
             'last_name'
           )}
         </div>
-        <div>
-          <label>Status</label>
-          {mapInputFieldWithError(
-            <select name="status" value={user.status} onChange={handleChange}>
-              {userStatuses &&
-                userStatuses.map(status => (
-                  <option key={status} value={status}>
-                    {status}
-                  </option>
-                ))}
-            </select>,
-            'status'
-          )}
-        </div>
-        <button type="submit">Create User</button>
+        <button type="submit">
+          {`${user && user.id ? 'Update' : 'Create'}`} User
+        </button>
       </form>
     </div>
   );
 };
 
 Create.propTypes = {
-  create: PropTypes.func
+  list: PropTypes.arrayOf(PropTypes.any),
+  create: PropTypes.func,
+  update: PropTypes.func
 };
 
 Create.defaultProps = {
-  create: () => {}
+  list: [],
+  create: () => {},
+  update: () => {}
 };
 
 export default Create;

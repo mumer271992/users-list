@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import './UsersList.scss';
 
-const UsersList = ({ list, updateStatus }) => {
+const UsersList = ({ list, updateStatus, onEdit }) => {
   const onStatusUpdate = (id, status) => {
     updateStatus(id, status === 'locked' ? 'active' : 'locked');
   };
@@ -27,6 +27,7 @@ const UsersList = ({ list, updateStatus }) => {
                 <button onClick={() => onStatusUpdate(item.id, item.status)}>
                   Action
                 </button>
+                <button onClick={() => onEdit(item)}>Edit</button>
               </div>
             </div>
           ))}
@@ -49,11 +50,13 @@ const UsersList = ({ list, updateStatus }) => {
 
 UsersList.propTypes = {
   list: PropTypes.arrayOf(PropTypes.any).isRequired,
-  updateStatus: PropTypes.func
+  updateStatus: PropTypes.func,
+  onEdit: PropTypes.func
 };
 
 UsersList.defaultProps = {
-  updateStatus: () => {}
+  updateStatus: () => {},
+  onEdit: () => {}
 };
 
 export default UsersList;

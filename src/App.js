@@ -15,6 +15,7 @@ function App() {
           </Route>
           <Route path="/list" component={List} />
           <Route path="/new" component={Create} />
+          <Route path="/edit/:userId" component={Create} />
         </Switch>
       </BrowserRouter>
     </div>

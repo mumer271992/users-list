@@ -2,7 +2,8 @@ import actionTypes from './types';
 
 const defaultState = {
   list: [],
-  loading: false
+  loading: false,
+  selectedUser: {}
 };
 
 export default (state = defaultState, action) => {
@@ -31,12 +32,17 @@ export default (state = defaultState, action) => {
     case actionTypes.addUser: {
       const { user } = action;
       const existingList = [...state.list];
-      console.log('List Size Before: ', existingList.length);
       existingList.push(user);
-      console.log('List Size After: ', existingList.length);
       return {
         ...state,
         list: existingList
+      };
+    }
+    case actionTypes.selectUser: {
+      const { user } = action;
+      return {
+        ...state,
+        selectedUser: user
       };
     }
     case actionTypes.loading: {

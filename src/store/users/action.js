@@ -46,7 +46,7 @@ export const fetchAndStoreUserslist = () => {
   };
 };
 
-export const updateAndStoreUser = (id, data) => {
+export const updateAndStoreUser = (id, data, onSuccess, onError) => {
   return dispatch => {
     dispatch(showLoading());
     return api.user
@@ -54,9 +54,11 @@ export const updateAndStoreUser = (id, data) => {
       .then(() => {
         dispatch(hideLoading());
         dispatch(updateUser(id, data));
+        onSuccess();
       })
-      .catch(() => {
+      .catch(err => {
         dispatch(hideLoading());
+        onError(err);
       });
   };
 };
