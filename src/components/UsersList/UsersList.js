@@ -17,7 +17,9 @@ const UsersList = ({ list, updateStatus, onEdit }) => {
             <div
               key={item.id}
               data-test="users-list-item"
-              className="users-list-item"
+              className={`${
+                item.status === 'locked' ? 'line-through' : ''
+              } users-list-item`}
             >
               <div>{item.first_name}</div>
               <div>{item.last_name}</div>

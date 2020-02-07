@@ -8,6 +8,11 @@
       flex: 1;
     }
   }
+  &-item.line-through {
+    > div {
+      text-decoration: line-through;
+    }
+  }
   &-item.headers {
     font-weight: bold;
     border-bottom: 1px solid #000000;

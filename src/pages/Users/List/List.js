@@ -55,11 +55,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
     update(id, data);
   };
 
-  const editUser = data => {
-    console.log('Select user: ', data);
-    history.push(`/edit/${data.id}`);
-    // selectUser(data);
-  };
+  const editUser = data => history.push(`/edit/${data.id}`);
 
   useEffect(() => {
     if (!list || !list.length) {
@@ -74,6 +70,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
   return (
     <div className="users-list-page">
       {loading && <Loader />}
+      <button onClick={() => history.push('/new')}>Add New User</button>
       <UsersList
         list={state.users}
         updateStatus={updateStatus}
