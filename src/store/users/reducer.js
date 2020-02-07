@@ -28,6 +28,17 @@ export default (state = defaultState, action) => {
         list: existingList
       };
     }
+    case actionTypes.addUser: {
+      const { user } = action;
+      const existingList = [...state.list];
+      console.log('List Size Before: ', existingList.length);
+      existingList.push(user);
+      console.log('List Size After: ', existingList.length);
+      return {
+        ...state,
+        list: existingList
+      };
+    }
     case actionTypes.loading: {
       const { loading } = action;
       return {

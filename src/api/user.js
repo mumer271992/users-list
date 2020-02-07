@@ -1,11 +1,9 @@
 import http from './http';
 
-const RESOURCE_URL = '/users.json';
-
 const list = () => {
   return new Promise((resolve, reject) => {
     http
-      .getList(RESOURCE_URL)
+      .getList('/users.json')
       .then(resp => {
         resolve(resp);
       })
@@ -24,7 +22,21 @@ const update = (id, data) => {
   });
 };
 
+const create = data => {
+  return new Promise((resolve, reject) => {
+    http
+      .post('/users.json', data)
+      .then(resp => {
+        resolve(resp);
+      })
+      .catch(error =>
+        reject((error && error.response && error.response.data) || {})
+      );
+  });
+};
+
 export default {
   list,
-  update
+  update,
+  create
 };
