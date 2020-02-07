@@ -31,8 +31,7 @@ export default (state = defaultState, action) => {
     }
     case actionTypes.addUser: {
       const { user } = action;
-      const existingList = [...state.list];
-      existingList.push(user);
+      const existingList = [user, ...state.list];
       return {
         ...state,
         list: existingList
