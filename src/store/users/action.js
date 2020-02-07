@@ -54,11 +54,11 @@ export const updateAndStoreUser = (id, data, onSuccess, onError) => {
       .then(() => {
         dispatch(hideLoading());
         dispatch(updateUser(id, data));
-        onSuccess();
+        if (onSuccess && typeof onSuccess === 'function') onSuccess();
       })
       .catch(err => {
         dispatch(hideLoading());
-        onError(err);
+        if (onError && typeof onError === 'function') onError(err);
       });
   };
 };
@@ -72,12 +72,12 @@ export const createAndStoreUser = (data, onSuccess, onError) => {
         if (resp && resp.id) {
           dispatch(addUser(resp));
           dispatch(hideLoading());
-          onSuccess();
+          if (onSuccess && typeof onSuccess === 'function') onSuccess();
         }
       })
       .catch(err => {
         dispatch(hideLoading());
-        onError(err);
+        if (onError && typeof onError === 'function') onError(err);
       });
   };
 };

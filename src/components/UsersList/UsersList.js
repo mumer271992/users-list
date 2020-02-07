@@ -23,13 +23,12 @@ const UsersList = ({ list, updateStatus, onEdit }) => {
             >
               <div>{item.first_name}</div>
               <div>{item.last_name}</div>
-              <div>{item.status}</div>
               <div>{item.created_at}</div>
               <div>
-                <button onClick={() => onStatusUpdate(item.id, item.status)}>
-                  Action
-                </button>
                 <button onClick={() => onEdit(item)}>Edit</button>
+                <button onClick={() => onStatusUpdate(item.id, item.status)}>
+                  {item.status === 'active' ? 'Lock User' : 'Activate User'}
+                </button>
               </div>
             </div>
           ))}
@@ -41,9 +40,8 @@ const UsersList = ({ list, updateStatus, onEdit }) => {
       <div className="users-list-item headers">
         <div>First Name</div>
         <div>Last Name</div>
-        <div>Status</div>
         <div>Created At</div>
-        <div>Action</div>
+        <div>Actions</div>
       </div>
       {generateUsersList()}
     </div>
