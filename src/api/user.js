@@ -13,6 +13,18 @@ const list = () => {
   });
 };
 
+const update = (id, data) => {
+  return new Promise((resolve, reject) => {
+    http
+      .put(`/users/${id}.json`, data)
+      .then(resp => {
+        resolve(resp);
+      })
+      .catch(error => reject(error));
+  });
+};
+
 export default {
-  list
+  list,
+  update
 };

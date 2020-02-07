@@ -2,13 +2,15 @@ import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import UsersList from '../../../components/UsersList/UsersList';
+import Loader from '../../../components/Loader/Loader';
 
-const List = ({ list, fetchUsers }) => {
-  const initialState = {
-    page: 0,
-    pageSize: 10,
-    users: []
-  };
+const initialState = {
+  page: 1,
+  pageSize: 10,
+  users: []
+};
+
+const List = ({ list, loading, fetchUsers, update }) => {
   const [state, setState] = useState(initialState);
 
   const onPrevPage = useCallback(() => {
@@ -19,7 +21,16 @@ const List = ({ list, fetchUsers }) => {
       page: state.page - 1,
       users: list.slice(start, end)
     });
-  }, [list, state]);
+  }, [list, state.page, state.pageSize]);
+
+  const populateCurrrentPage = useCallback(() => {
+    const start = state.pageSize * (state.page - 1);
+    const end = start + state.pageSize;
+    setState({
+      ...initialState,
+      users: list.slice(start, end)
+    });
+  }, [list, state.pageSize, state.page]);
 
   const onNextPage = useCallback(() => {
     const start = state.pageSize * state.page;
@@ -29,25 +40,33 @@ const List = ({ list, fetchUsers }) => {
       page: state.page + 1,
       users: list.slice(start, end)
     });
-  }, [list, state]);
+  }, [list, state.page, state.pageSize]);
 
   const hasNextPage = () => {
     return Math.ceil(list.length / state.pageSize) > state.page;
+  };
+
+  const updateStatus = (id, status) => {
+    const data = {
+      status
+    };
+    update(id, data);
   };
 
   useEffect(() => {
     if (!list || !list.length) {
       fetchUsers();
     }
-    // Populate first page
+
     if (list && list.length) {
-      onNextPage();
+      populateCurrrentPage();
     }
-  }, [list, fetchUsers]);
+  }, [list, fetchUsers, populateCurrrentPage]);
 
   return (
     <div className="users-list-page">
-      <UsersList list={state.users} />
+      {loading && <Loader />}
+      <UsersList list={state.users} updateStatus={updateStatus} />
       {list && list.length && (
         <div>
           <button
@@ -72,7 +91,13 @@ const List = ({ list, fetchUsers }) => {
 
 List.propTypes = {
   list: PropTypes.arrayOf(PropTypes.any).isRequired,
-  fetchUsers: PropTypes.func.isRequired
+  loading: PropTypes.bool,
+  fetchUsers: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired
+};
+
+List.defaultProps = {
+  loading: false
 };
 
 export default List;
