@@ -38,13 +38,6 @@ export default (state = defaultState, action) => {
         list: existingList
       };
     }
-    case actionTypes.selectUser: {
-      const { user } = action;
-      return {
-        ...state,
-        selectedUser: user
-      };
-    }
     case actionTypes.loading: {
       const { loading } = action;
       return {
