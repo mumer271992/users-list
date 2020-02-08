@@ -1,3 +1,14 @@
+/*
+  TEST PLAN
+
+  ✔ Should mount successfully
+  ✔ Should render all list items
+  ✔ Should render page handlers
+  ✔ Previous button should be disabled on start
+  ✔ Previous button should become enable on next page
+  ✔ Previous button should become enable on next page and disabled back on prev buuttonn click
+*/
+
 import React from 'react';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
@@ -26,7 +37,7 @@ function mountSetup() {
   );
   return wrapper;
 }
-describe('Users List component test', () => {
+describe('Users List page test', () => {
   let enzymeWrapper;
   beforeEach(() => {
     enzymeWrapper = mountSetup();
@@ -48,7 +59,7 @@ describe('Users List component test', () => {
     expect(nextBtnWrapper.length).toEqual(1);
   });
 
-  it('previous button should be disabled on strt', () => {
+  it('previous button should be disabled on start', () => {
     const prevBtnWrapper = enzymeWrapper.find('[data-test="prev-btn"]');
     expect(prevBtnWrapper.props().disabled).toEqual(true);
   });
