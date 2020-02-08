@@ -35,10 +35,10 @@ export const fetchAndStoreUserslist = () => {
     return api.user
       .list()
       .then(resp => {
-        dispatch(hideLoading());
         if (resp) {
           dispatch(saveUsers(resp));
         }
+        dispatch(hideLoading());
       })
       .catch(() => {
         dispatch(hideLoading());
@@ -52,8 +52,8 @@ export const updateAndStoreUser = (id, data, onSuccess, onError) => {
     return api.user
       .update(id, data)
       .then(() => {
-        dispatch(hideLoading());
         dispatch(updateUser(id, data));
+        dispatch(hideLoading());
         if (onSuccess && typeof onSuccess === 'function') onSuccess();
       })
       .catch(err => {
