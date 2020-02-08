@@ -25,8 +25,13 @@ const UsersList = ({ list, updateStatus, onEdit }) => {
               <div>{item.last_name}</div>
               <div>{item.created_at}</div>
               <div>
-                <button onClick={() => onEdit(item)}>Edit</button>
-                <button onClick={() => onStatusUpdate(item.id, item.status)}>
+                <button data-test="edit-btn" onClick={() => onEdit(item)}>
+                  Edit
+                </button>
+                <button
+                  data-test="status-update-btn"
+                  onClick={() => onStatusUpdate(item.id, item.status)}
+                >
                   {item.status === 'active' ? 'Lock User' : 'Activate User'}
                 </button>
               </div>

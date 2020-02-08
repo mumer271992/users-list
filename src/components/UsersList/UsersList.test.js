@@ -1,42 +1,31 @@
+/*
+  TEST PLAN
+
+  ✔ Should mount successfully
+  ✔ Should render all list items
+  ✔ should call edit handler on clicking edit button
+  ✔ should call update status handler on clicking update status button
+*/
+
 import React from 'react';
 import { mount } from 'enzyme';
 
 import UsersList from './UsersList';
+import { users } from '../../mockedData';
 
-const mockedUsersList = [
-  {
-    id: 382,
-    last_name: 'LastyLast',
-    first_name: '1985-55-88000000',
-    status: 'locked',
-    created_at: '2017-09-07T03:34:28.614Z',
-    updated_at: '2020-02-03T15:49:03.690Z',
-    url: 'http://js-assessment-backend.herokuapp.com/users/382.json'
-  },
-  {
-    id: 515,
-    last_name: 'Last10',
-    first_name: 'Name10',
-    status: 'active',
-    created_at: '2018-04-28T14:32:23.750Z',
-    updated_at: '2020-01-16T17:33:38.751Z',
-    url: 'http://js-assessment-backend.herokuapp.com/users/515.json'
-  },
-  {
-    id: 374,
-    last_name: 'Mall',
-    first_name: 'Pall',
-    status: 'active',
-    created_at: '2017-09-07T03:16:03.492Z',
-    updated_at: '2020-01-25T13:12:59.759Z',
-    url: 'http://js-assessment-backend.herokuapp.com/users/374.json'
-  }
-];
+const mockEditHandler = jest.fn();
+const mockUpdateStatusHandler = jest.fn();
 
 describe('Users List component test', () => {
   let enzymeWrapper;
   beforeEach(() => {
-    enzymeWrapper = mount(<UsersList list={mockedUsersList} />);
+    enzymeWrapper = mount(
+      <UsersList
+        list={users}
+        updateStatus={mockUpdateStatusHandler}
+        onEdit={mockEditHandler}
+      />
+    );
   });
 
   it('should mount successfully', () => {
@@ -44,6 +33,22 @@ describe('Users List component test', () => {
   });
   it('should render all list items', () => {
     const usersWrapper = enzymeWrapper.find('[data-test="users-list-item"]');
-    expect(usersWrapper.length).toEqual(mockedUsersList.length);
+    expect(usersWrapper.length).toEqual(users.length);
+  });
+  it('should call edit handler on clicking edit button', () => {
+    const editBtn = enzymeWrapper.find('[data-test="edit-btn"]').at(0);
+    if (editBtn) {
+      editBtn.simulate('click');
+    }
+    expect(mockEditHandler).toHaveBeenCalled();
+  });
+  it('should call update status handler on clicking update status button', () => {
+    const updateStatusBtn = enzymeWrapper
+      .find('[data-test="status-update-btn"]')
+      .at(0);
+    if (updateStatusBtn) {
+      updateStatusBtn.simulate('click');
+    }
+    expect(mockUpdateStatusHandler).toHaveBeenCalled();
   });
 });
