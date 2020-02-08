@@ -2,8 +2,7 @@ import actionTypes from './types';
 
 const defaultState = {
   list: [],
-  loading: false,
-  selectedUser: {}
+  loading: false
 };
 
 export default (state = defaultState, action) => {
