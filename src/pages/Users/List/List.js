@@ -5,21 +5,19 @@ import { useHistory } from 'react-router-dom';
 import UsersList from '../../../components/UsersList/UsersList';
 import Loader from '../../../components/Loader/Loader';
 
-const initialState = {
-  page: 1,
-  pageSize: 10,
-  users: []
-};
-
 const List = ({ list, loading, fetchUsers, update }) => {
   const history = useHistory();
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState({
+    page: 1,
+    pageSize: 10,
+    users: []
+  });
 
   const onPrevPage = useCallback(() => {
     const start = (state.page - 2) * state.pageSize;
     const end = start + state.pageSize;
     setState({
-      ...initialState,
+      ...state,
       page: state.page - 1,
       users: list.slice(start, end)
     });
@@ -29,7 +27,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
     const start = state.pageSize * (state.page - 1);
     const end = start + state.pageSize;
     setState({
-      ...initialState,
+      ...state,
       users: list.slice(start, end)
     });
   }, [list, state.pageSize, state.page]);
@@ -38,7 +36,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
     const start = state.pageSize * state.page;
     const end = start + state.pageSize;
     setState({
-      ...initialState,
+      ...state,
       page: state.page + 1,
       users: list.slice(start, end)
     });
@@ -65,7 +63,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
     if (list && list.length) {
       populateCurrrentPage();
     }
-  }, [list, fetchUsers, populateCurrrentPage]);
+  }, [list, fetchUsers]);
 
   return (
     <div className="users-list-page">
