@@ -66,17 +66,26 @@ const List = ({ list, loading, fetchUsers, update }) => {
   }, [list, fetchUsers]);
 
   return (
-    <div className="users-list-page">
+    <div className="container page users-list-page">
       {loading && <Loader />}
-      <button onClick={() => history.push('/new')}>Add New User</button>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h3>UsersList</h3>
+        <button
+          className="btn btn-primary btn-sm"
+          onClick={() => history.push('/new')}
+        >
+          Add New User
+        </button>
+      </div>
       <UsersList
         list={state.users}
         updateStatus={updateStatus}
         onEdit={editUser}
       />
       {list && list.length && (
-        <div>
+        <div className="mt-4 d-flex justify-content-between align-items-center">
           <button
+            className="btn btn-secondary btn-sm"
             data-test="prev-btn"
             onClick={() => onPrevPage()}
             disabled={state.page && state.page < 2}
@@ -84,6 +93,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
             Load Prev Page
           </button>
           <button
+            className="btn btn-secondary btn-sm"
             data-test="next-btn"
             onClick={() => onNextPage()}
             disabled={!hasNextPage()}

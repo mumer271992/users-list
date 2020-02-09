@@ -1,23 +1,43 @@
+@import '../../theme/variables.scss';
+
 .users-list {
+  background-color: $white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   &-item {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid $border-color;
     > div {
       flex: 1;
+      padding: 0 1rem;
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
+    .actions {
+      .btn {
+        min-width: 100px;
+        font-size: 0.7rem;
+      }
     }
   }
   &-item.line-through {
     > div {
       text-decoration: line-through;
+      text-decoration-color: crimson;
     }
   }
   &-item.headers {
+    padding: 0.5rem 0;
     font-weight: bold;
-    border-bottom: 1px solid #000000;
+    border-bottom: 1px solid $border-color;
     > div {
       flex: 1;
+      padding: 0 1rem;
     }
   }
 }

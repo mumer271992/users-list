@@ -24,11 +24,16 @@ const UsersList = ({ list, updateStatus, onEdit }) => {
               <div>{item.first_name}</div>
               <div>{item.last_name}</div>
               <div>{item.created_at}</div>
-              <div>
-                <button data-test="edit-btn" onClick={() => onEdit(item)}>
+              <div className="actions">
+                <button
+                  className="btn btn-outline-success btn-sm mr-1"
+                  data-test="edit-btn"
+                  onClick={() => onEdit(item)}
+                >
                   Edit
                 </button>
                 <button
+                  className="btn btn-outline-secondary btn-sm"
                   data-test="status-update-btn"
                   onClick={() => onStatusUpdate(item.id, item.status)}
                 >
@@ -41,7 +46,7 @@ const UsersList = ({ list, updateStatus, onEdit }) => {
     );
   };
   return (
-    <div className="users-list">
+    <div className="users-list custom-card">
       <div className="users-list-item headers">
         <div>First Name</div>
         <div>Last Name</div>
