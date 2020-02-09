@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import './UsersList.scss';
+import { dateFilter } from '../../shared/utility';
 
 const UsersList = ({ list, updateStatus, onEdit }) => {
   const onStatusUpdate = (id, status) => {
@@ -23,7 +24,7 @@ const UsersList = ({ list, updateStatus, onEdit }) => {
             >
               <div>{item.first_name}</div>
               <div>{item.last_name}</div>
-              <div>{item.created_at}</div>
+              <div>{dateFilter(item.created_at)}</div>
               <div className="actions">
                 <button
                   className="btn btn-outline-success btn-sm mr-1"
