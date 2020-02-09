@@ -70,6 +70,7 @@ const Create = ({ list, create, update }) => {
           <label>First Name</label>
           {mapInputFieldWithError(
             <input
+              data-test="first_name"
               placeholder="First Name"
               value={user.first_name}
               name="first_name"
@@ -82,6 +83,7 @@ const Create = ({ list, create, update }) => {
           <label>Last Name</label>
           {mapInputFieldWithError(
             <input
+              data-test="last_name"
               placeholder="Last Name"
               name="last_name"
               value={user.last_name}
@@ -90,7 +92,11 @@ const Create = ({ list, create, update }) => {
             'last_name'
           )}
         </div>
-        <button type="submit">
+        <button
+          data-test="action-btn"
+          type="submit"
+          disabled={!user.first_name || !user.last_name}
+        >
           {`${user && user.id ? 'Update' : 'Create'}`} User
         </button>
       </form>
