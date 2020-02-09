@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const http = {
-  base_url: 'http://js-assessment-backend.herokuapp.com', // TODO: this url goes to env
+  base_url: 'https://js-assessment-backend.herokuapp.com', // TODO: this url goes to env
 
   setDefaultHeader: function(name, value) {
     axios.defaults.headers.common[name] = value;
