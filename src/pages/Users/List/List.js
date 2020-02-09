@@ -21,7 +21,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
       page: state.page - 1,
       users: list.slice(start, end)
     });
-  }, [list, state.page, state.pageSize]);
+  }, [list, state]);
 
   const populateCurrrentPage = useCallback(() => {
     const start = state.pageSize * (state.page - 1);
@@ -30,7 +30,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
       ...state,
       users: list.slice(start, end)
     });
-  }, [list, state.pageSize, state.page]);
+  }, [list, state]);
 
   const onNextPage = useCallback(() => {
     const start = state.pageSize * state.page;
@@ -40,7 +40,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
       page: state.page + 1,
       users: list.slice(start, end)
     });
-  }, [list, state.page, state.pageSize]);
+  }, [list, state]);
 
   const hasNextPage = () => {
     return Math.ceil(list.length / state.pageSize) > state.page;
