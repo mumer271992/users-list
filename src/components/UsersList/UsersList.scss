@@ -12,6 +12,8 @@
     padding: 0.5rem 0;
     border-bottom: 1px solid $border-color;
     > div {
+      // TODO: text overflow should be eclipses
+      word-break: break-all;
       flex: 1;
       padding: 0 1rem;
     }

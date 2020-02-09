@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 import { useHistory, useParams } from 'react-router-dom';
 
 import './Create.scss';
+import Loader from '../../../components/Loader/Loader';
 
-const Create = ({ list, create, update }) => {
+const Create = ({ list, create, update, loading }) => {
   const history = useHistory();
   const { userId } = useParams();
 
@@ -41,7 +42,7 @@ const Create = ({ list, create, update }) => {
     return (
       <div>
         {inputField}
-        <span>
+        <span className="error">
           {errors && errors[key] && errors[key][0]
             ? `${key} ${errors[key][0]}`
             : ''}
@@ -64,42 +65,58 @@ const Create = ({ list, create, update }) => {
   }, [list, userId]);
 
   return (
-    <div className="create-user">
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>First Name</label>
-          {mapInputFieldWithError(
-            <input
-              data-test="first_name"
-              placeholder="First Name"
-              value={user.first_name}
-              name="first_name"
-              onChange={handleChange}
-            />,
-            'first_name'
-          )}
-        </div>
-        <div>
-          <label>Last Name</label>
-          {mapInputFieldWithError(
-            <input
-              data-test="last_name"
-              placeholder="Last Name"
-              name="last_name"
-              value={user.last_name}
-              onChange={handleChange}
-            />,
-            'last_name'
-          )}
-        </div>
-        <button
-          data-test="action-btn"
-          type="submit"
-          disabled={!user.first_name || !user.last_name}
-        >
-          {`${user && user.id ? 'Update' : 'Create'}`} User
-        </button>
-      </form>
+    <div className="container page create-user">
+      <h3>{`${user && user.id ? 'Update' : 'Create New'}`} User</h3>
+      <div className="custom-card mt-4 position-relative">
+        <form onSubmit={handleSubmit}>
+          {loading && <Loader />}
+          <div className="form-group">
+            <label>First Name</label>
+            {mapInputFieldWithError(
+              <input
+                className="form-control"
+                data-test="first_name"
+                placeholder="First Name"
+                value={user.first_name}
+                name="first_name"
+                onChange={handleChange}
+              />,
+              'first_name'
+            )}
+          </div>
+          <div>
+            <label>Last Name</label>
+            {mapInputFieldWithError(
+              <input
+                className="form-control"
+                data-test="last_name"
+                placeholder="Last Name"
+                name="last_name"
+                value={user.last_name}
+                onChange={handleChange}
+              />,
+              'last_name'
+            )}
+          </div>
+          <div className="text-right mt-4">
+            <button
+              className="btn btn-secondary btn-sm mr-2"
+              onClick={onSuccess}
+            >
+              Cancel
+            </button>
+            {/* TODO: Submit button should be disabled until values are filled */}
+            <button
+              className="btn btn-primary btn-sm"
+              data-test="action-btn"
+              type="submit"
+              // disabled={!user.first_name || !user.last_name}
+            >
+              {`${user && user.id ? 'Update' : 'Create'}`} User
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
@@ -107,13 +124,15 @@ const Create = ({ list, create, update }) => {
 Create.propTypes = {
   list: PropTypes.arrayOf(PropTypes.any),
   create: PropTypes.func,
-  update: PropTypes.func
+  update: PropTypes.func,
+  loading: PropTypes.bool
 };
 
 Create.defaultProps = {
   list: [],
   create: () => {},
-  update: () => {}
+  update: () => {},
+  loading: false
 };
 
 export default Create;

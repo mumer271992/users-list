@@ -67,7 +67,6 @@ const List = ({ list, loading, fetchUsers, update }) => {
 
   return (
     <div className="container page users-list-page">
-      {loading && <Loader />}
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>UsersList</h3>
         <button
@@ -77,11 +76,14 @@ const List = ({ list, loading, fetchUsers, update }) => {
           Add New User
         </button>
       </div>
-      <UsersList
-        list={state.users}
-        updateStatus={updateStatus}
-        onEdit={editUser}
-      />
+      <div className="position-relative">
+        {loading && <Loader />}
+        <UsersList
+          list={state.users}
+          updateStatus={updateStatus}
+          onEdit={editUser}
+        />
+      </div>
       {list && list.length && (
         <div className="mt-4 d-flex justify-content-between align-items-center">
           <button
