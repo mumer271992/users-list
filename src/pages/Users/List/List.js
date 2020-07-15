@@ -14,6 +14,7 @@ function initCCP(containerDiv) {
   window.connect.core.initCCP(containerDiv, {
     ccpUrl: instanceURL,
     loginPopup: true,
+    loginPopupAutoClose: true,
     region: 'eu-central-1',
     softphone: {
       allowFramedSoftphone: true,
