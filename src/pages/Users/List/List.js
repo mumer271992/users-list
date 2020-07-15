@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
 import UsersList from '../../../components/UsersList/UsersList';
@@ -27,6 +27,23 @@ function initCCP(activeWindow) {
   bus.subscribe(window.connect.AgentEvents.INIT, () => {
     console.log("CCP Initiaalized...");
     activeWindow(true);
+  });
+}
+
+function initCall(phone) {
+  window.connect.agent(function(agent) {
+    const endpoint = window.connect.Endpoint.byPhoneNumber('00923044454084');
+    agent.connect(endpoint, {
+      queueARN: process.env.CONNECT_QUEUE_ARN,
+      success: function(){
+        console.log("Success call!!!!!!")
+
+      },
+      failure: function(e){
+        console.log("Call failed!!!!!!!")
+        console.log(e);
+      }
+    });
   });
 }
 
@@ -113,6 +130,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
       <div>Amazone Conect Contact Panel Integration</div>
       <div id="containerDiv" style={{ width: '400px', height: '800px', display: active ? "block" : "none" }} />
       <button onClick={init} style={{display: active ? "none" : "block", width:320}}>Login to AWS Connect</button>
+      <button onClick={initCall} style={{ display: active ? "block" : "none" }}>Call to Customer</button>
       {/* <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>UsersList</h3>
         <button
