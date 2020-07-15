@@ -32,7 +32,7 @@ function initCCP(activeWindow) {
 
 function initCall(phone) {
   window.connect.agent(function(agent) {
-    const endpoint = window.connect.Endpoint.byPhoneNumber('00923044454084');
+    const endpoint = window.connect.Endpoint.byPhoneNumber('+1-800-555-1212');
     agent.connect(endpoint, {
       queueARN: process.env.CONNECT_QUEUE_ARN,
       success: function(){
