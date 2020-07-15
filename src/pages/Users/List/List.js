@@ -8,10 +8,11 @@ import Loader from '../../../components/Loader/Loader';
 import 'amazon-connect-streams';
 
 var instanceURL = 'https://pak-venture.awsapps.com/connect/ccp-v2/';
+var bus;
 
-function initCCP(containerDiv) {
+function initCCP(activeWindow) {
   // initialize the ccp
-  window.connect.core.initCCP(containerDiv, {
+  window.connect.core.initCCP(document.getElementById('containerDiv'), {
     ccpUrl: instanceURL,
     loginPopup: true,
     loginPopupAutoClose: true,
@@ -22,6 +23,11 @@ function initCCP(containerDiv) {
       ringtoneUrl: './ringtone.mp3'
     }
   });
+  bus = window.connect.core.getEventBus();
+  bus.subscribe(window.connect.AgentEvents.INIT, () => {
+    console.log("CCP Initiaalized...");
+    activeWindow();
+  });
 }
 
 const List = ({ list, loading, fetchUsers, update }) => {
@@ -31,6 +37,12 @@ const List = ({ list, loading, fetchUsers, update }) => {
     pageSize: 10,
     users: []
   });
+
+  const [active, setActive] = useState(false);
+
+  const init = () => {
+    initCCP(setActive);
+  };
 
   const onPrevPage = useCallback(() => {
     const start = (state.page - 2) * state.pageSize;
@@ -84,23 +96,23 @@ const List = ({ list, loading, fetchUsers, update }) => {
     }
   }, [list, fetchUsers]);
 
-  useEffect(() => {
-    console.log("Streams Connect");
-    console.log(window.connect);
-    setTimeout(() => {
-      const containerDiv = document.getElementById('containerDiv');
-      if (containerDiv) {
-        initCCP(containerDiv);
-      }
-    }, 2000);
-    console.log("Running...");
-  }, []);
+  // useEffect(() => {
+  //   console.log("Streams Connect");
+  //   console.log(window.connect);
+  //   setTimeout(() => {
+  //     const containerDiv = document.getElementById('containerDiv');
+  //     if (containerDiv) {
+  //       initCCP(containerDiv);
+  //     }
+  //   }, 2000);
+  //   console.log("Running...");
+  // }, []);
 
   return (
     <div className="container page users-list-page">
       <div>Amazone Conect Contact Panel Integration</div>
-      <div id="containerDiv" style={{ width: '400px', height: '800px' }} />
-      <button>Connect Contact Center</button>
+      <div id="containerDiv" style={{ width: '400px', height: '800px', display: active ? "block" : "none" }} />
+      <button onClick={init} style={{display: active ? "none" : "block", width:320}}>Login to AWS Connect</button>
       {/* <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>UsersList</h3>
         <button
