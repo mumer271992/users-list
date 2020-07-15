@@ -26,7 +26,7 @@ function initCCP(activeWindow) {
   bus = window.connect.core.getEventBus();
   bus.subscribe(window.connect.AgentEvents.INIT, () => {
     console.log("CCP Initiaalized...");
-    activeWindow();
+    activeWindow(true);
   });
 }
 
