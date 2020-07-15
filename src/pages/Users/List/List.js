@@ -5,6 +5,25 @@ import { useHistory } from 'react-router-dom';
 import UsersList from '../../../components/UsersList/UsersList';
 import Loader from '../../../components/Loader/Loader';
 
+import 'amazon-connect-streams';
+
+var instanceURL = 'https://pak-venture.awsapps.com/connect/ccp-v2/';
+
+function initCCP(containerDiv) {
+  // initialize the ccp
+  window.connect.core.initCCP(containerDiv, {
+    ccpUrl: instanceURL,
+    loginPopup: true,
+    loginUrl: 'https://pak-venture.awsapps.com/connect/login',
+    region: 'eu-central-1',
+    softphone: {
+      allowFramedSoftphone: true,
+      disableRingtone: false,
+      ringtoneUrl: './ringtone.mp3'
+    }
+  });
+}
+
 const List = ({ list, loading, fetchUsers, update }) => {
   const history = useHistory();
   const [state, setState] = useState({
@@ -65,9 +84,24 @@ const List = ({ list, loading, fetchUsers, update }) => {
     }
   }, [list, fetchUsers]);
 
+  useEffect(() => {
+    console.log("Streams Connect");
+    console.log(window.connect);
+    setTimeout(() => {
+      const containerDiv = document.getElementById('containerDiv');
+      if (containerDiv) {
+        initCCP(containerDiv);
+      }
+    }, 2000);
+    console.log("Running...");
+  }, []);
+
   return (
     <div className="container page users-list-page">
-      <div className="d-flex justify-content-between align-items-center mb-4">
+      <div>Amazone Conect Contact Panel Integration</div>
+      <div id="containerDiv" style={{ width: '400px', height: '800px' }} />
+      <button>Connect Contact Center</button>
+      {/* <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>UsersList</h3>
         <button
           className="btn btn-primary btn-sm"
@@ -75,16 +109,16 @@ const List = ({ list, loading, fetchUsers, update }) => {
         >
           Add New User
         </button>
-      </div>
-      <div className="position-relative">
+      </div> */}
+      {/* <div className="position-relative">
         {loading && <Loader />}
         <UsersList
           list={state.users}
           updateStatus={updateStatus}
           onEdit={editUser}
         />
-      </div>
-      {list && list.length && (
+      </div> */}
+      {/* {list && list.length && (
         <div className="mt-4 d-flex justify-content-between align-items-center">
           <button
             className="btn btn-secondary btn-sm"
@@ -103,7 +137,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
             Load Next Page
           </button>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

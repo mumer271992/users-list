@@ -1738,6 +1738,11 @@ alphanum-sort@^1.0.0:
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
   integrity sha1-l6ERlkmyEa0zaR2fn0hqjsn74KM=
 
+amazon-connect-streams@^1.4.9:
+  version "1.4.9"
+  resolved "https://registry.yarnpkg.com/amazon-connect-streams/-/amazon-connect-streams-1.4.9.tgz#dd7932526108e0aaa016ef26a890b9bd415bca2a"
+  integrity sha512-Th/s5b1qP4IaHhhm5ckaneIQi44nRhwgcjiHOEGUL0MeclrmiwMS8EyGfWUpp7rQqB0RRdnIANIgj/3EZeBDvw==
+
 amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
