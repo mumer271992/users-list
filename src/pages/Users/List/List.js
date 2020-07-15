@@ -127,10 +127,14 @@ const List = ({ list, loading, fetchUsers, update }) => {
 
   return (
     <div className="container page users-list-page">
-      <div>Amazone Conect Contact Panel Integration</div>
-      <div id="containerDiv" style={{ width: '400px', height: '800px', display: active ? "block" : "none" }} />
-      <button onClick={init} style={{display: active ? "none" : "block", width:320}}>Login to AWS Connect</button>
-      <button onClick={initCall} style={{ display: active ? "block" : "none" }}>Call to Customer</button>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <div>Amazone Conect Contact Panel Integration</div>
+        <div>
+          <button onClick={init} style={{display: active ? "none" : "block", width:320}}>Login to AWS Connect</button>
+          <button onClick={initCall} style={{ display: active ? "block" : "none" }}>Call to Customer</button>
+        </div>
+      </div>
+      <div id="containerDiv" style={{ width: '400px', height: '560px', margin: 'auto', display: active ? "block" : "none" }} />
       {/* <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>UsersList</h3>
         <button
