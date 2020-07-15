@@ -14,7 +14,6 @@ function initCCP(containerDiv) {
   window.connect.core.initCCP(containerDiv, {
     ccpUrl: instanceURL,
     loginPopup: true,
-    loginUrl: 'https://pak-venture.awsapps.com/connect/login',
     region: 'eu-central-1',
     softphone: {
       allowFramedSoftphone: true,
