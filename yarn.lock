@@ -2047,6 +2047,13 @@ autoprefixer@^9.6.1:
     postcss "^7.0.26"
     postcss-value-parser "^4.0.2"
 
+aws-ccp@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/aws-ccp/-/aws-ccp-1.0.1.tgz#9134e6c08877b85210834bb4358a1e6046ba3c3d"
+  integrity sha512-lb0cqvWoVP3SCIdmMBrfiBFrDt1I7oW9fXT2C6ekg6OqJdBG8iCfmUD6BTUUT1P4+uvpEIcq3Him+uTL8kE0WQ==
+  dependencies:
+    amazon-connect-streams "^1.4.9"
+
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"

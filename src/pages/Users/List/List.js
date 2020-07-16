@@ -1,117 +1,118 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes, { func } from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import CCPWrapper from 'aws-ccp';
 
-import UsersList from '../../../components/UsersList/UsersList';
-import Loader from '../../../components/Loader/Loader';
+// import UsersList from '../../../components/UsersList/UsersList';
+// import Loader from '../../../components/Loader/Loader';
 
-import 'amazon-connect-streams';
+// import 'amazon-connect-streams';
 
-var instanceURL = 'https://pak-venture.awsapps.com/connect/ccp-v2/';
-var bus;
+// var instanceURL = 'https://pak-venture.awsapps.com/connect/ccp-v2/';
+// var bus;
 
-function initCCP(activeWindow) {
-  // initialize the ccp
-  window.connect.core.initCCP(document.getElementById('containerDiv'), {
-    ccpUrl: instanceURL,
-    loginPopup: true,
-    loginPopupAutoClose: true,
-    region: 'eu-central-1',
-    softphone: {
-      allowFramedSoftphone: true,
-      disableRingtone: false,
-      ringtoneUrl: './ringtone.mp3'
-    }
-  });
-  bus = window.connect.core.getEventBus();
-  bus.subscribe(window.connect.AgentEvents.INIT, () => {
-    console.log("CCP Initiaalized...");
-    activeWindow(true);
-  });
-}
+// function initCCP(activeWindow) {
+//   // initialize the ccp
+//   window.connect.core.initCCP(document.getElementById('containerDiv'), {
+//     ccpUrl: instanceURL,
+//     loginPopup: true,
+//     loginPopupAutoClose: true,
+//     region: 'eu-central-1',
+//     softphone: {
+//       allowFramedSoftphone: true,
+//       disableRingtone: false,
+//       ringtoneUrl: './ringtone.mp3'
+//     }
+//   });
+//   bus = window.connect.core.getEventBus();
+//   bus.subscribe(window.connect.AgentEvents.INIT, () => {
+//     console.log("CCP Initiaalized...");
+//     activeWindow(true);
+//   });
+// }
 
-function initCall(phone) {
-  window.connect.agent(function(agent) {
-    const endpoint = window.connect.Endpoint.byPhoneNumber('+1-800-555-1212');
-    agent.connect(endpoint, {
-      queueARN: process.env.CONNECT_QUEUE_ARN,
-      success: function(){
-        console.log("Success call!!!!!!")
+// function initCall(phone) {
+//   window.connect.agent(function(agent) {
+//     const endpoint = window.connect.Endpoint.byPhoneNumber('+1-800-555-1212');
+//     agent.connect(endpoint, {
+//       queueARN: process.env.CONNECT_QUEUE_ARN,
+//       success: function(){
+//         console.log("Success call!!!!!!")
 
-      },
-      failure: function(e){
-        console.log("Call failed!!!!!!!")
-        console.log(e);
-      }
-    });
-  });
-}
+//       },
+//       failure: function(e){
+//         console.log("Call failed!!!!!!!")
+//         console.log(e);
+//       }
+//     });
+//   });
+// }
 
 const List = ({ list, loading, fetchUsers, update }) => {
-  const history = useHistory();
-  const [state, setState] = useState({
-    page: 1,
-    pageSize: 10,
-    users: []
-  });
+  // const history = useHistory();
+  // const [state, setState] = useState({
+  //   page: 1,
+  //   pageSize: 10,
+  //   users: []
+  // });
 
-  const [active, setActive] = useState(false);
+  // const [active, setActive] = useState(false);
 
-  const init = () => {
-    initCCP(setActive);
-  };
+  // const init = () => {
+  //   initCCP(setActive);
+  // };
 
-  const onPrevPage = useCallback(() => {
-    const start = (state.page - 2) * state.pageSize;
-    const end = start + state.pageSize;
-    setState({
-      ...state,
-      page: state.page - 1,
-      users: list.slice(start, end)
-    });
-  }, [list, state]);
+  // const onPrevPage = useCallback(() => {
+  //   const start = (state.page - 2) * state.pageSize;
+  //   const end = start + state.pageSize;
+  //   setState({
+  //     ...state,
+  //     page: state.page - 1,
+  //     users: list.slice(start, end)
+  //   });
+  // }, [list, state]);
 
-  const populateCurrrentPage = useCallback(() => {
-    const start = state.pageSize * (state.page - 1);
-    const end = start + state.pageSize;
-    setState({
-      ...state,
-      users: list.slice(start, end)
-    });
-  }, [list, state]);
+  // const populateCurrrentPage = useCallback(() => {
+  //   const start = state.pageSize * (state.page - 1);
+  //   const end = start + state.pageSize;
+  //   setState({
+  //     ...state,
+  //     users: list.slice(start, end)
+  //   });
+  // }, [list, state]);
 
-  const onNextPage = useCallback(() => {
-    const start = state.pageSize * state.page;
-    const end = start + state.pageSize;
-    setState({
-      ...state,
-      page: state.page + 1,
-      users: list.slice(start, end)
-    });
-  }, [list, state]);
+  // const onNextPage = useCallback(() => {
+  //   const start = state.pageSize * state.page;
+  //   const end = start + state.pageSize;
+  //   setState({
+  //     ...state,
+  //     page: state.page + 1,
+  //     users: list.slice(start, end)
+  //   });
+  // }, [list, state]);
 
-  const hasNextPage = () => {
-    return Math.ceil(list.length / state.pageSize) > state.page;
-  };
+  // const hasNextPage = () => {
+  //   return Math.ceil(list.length / state.pageSize) > state.page;
+  // };
 
-  const updateStatus = (id, status) => {
-    const data = {
-      status
-    };
-    update(id, data);
-  };
+  // const updateStatus = (id, status) => {
+  //   const data = {
+  //     status
+  //   };
+  //   update(id, data);
+  // };
 
-  const editUser = data => history.push(`/edit/${data.id}`);
+  // const editUser = data => history.push(`/edit/${data.id}`);
 
-  useEffect(() => {
-    if (!list || !list.length) {
-      fetchUsers();
-    }
+  // useEffect(() => {
+  //   if (!list || !list.length) {
+  //     fetchUsers();
+  //   }
 
-    if (list && list.length) {
-      populateCurrrentPage();
-    }
-  }, [list, fetchUsers]);
+  //   if (list && list.length) {
+  //     populateCurrrentPage();
+  //   }
+  // }, [list, fetchUsers]);
 
   // useEffect(() => {
   //   console.log("Streams Connect");
@@ -125,16 +126,23 @@ const List = ({ list, loading, fetchUsers, update }) => {
   //   console.log("Running...");
   // }, []);
 
+  useEffect(() => {
+    if (CCPWrapper) {
+      CCPWrapper.init();
+    }
+  }, []);
+
   return (
     <div className="container page users-list-page">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>Amazone Conect Contact Panel Integration</div>
-        <div>
+        <button onClick={CCPWrapper.show}>Show CCP</button>
+        {/* <div>
           <button onClick={init} style={{display: active ? "none" : "block", width:320}}>Login to AWS Connect</button>
           <button onClick={initCall} style={{ display: active ? "block" : "none" }}>Call to Customer</button>
-        </div>
+        </div> */}
       </div>
-      <div id="containerDiv" style={{ width: '400px', height: '560px', margin: 'auto', display: active ? "block" : "none" }} />
+      {/* <div id="containerDiv" style={{ width: '400px', height: '560px', margin: 'auto', display: active ? "block" : "none" }} /> */}
       {/* <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>UsersList</h3>
         <button
