@@ -2054,10 +2054,10 @@ autoprefixer@^9.6.1:
     postcss "^7.0.26"
     postcss-value-parser "^4.0.2"
 
-aws-ccp@1.0.12:
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/aws-ccp/-/aws-ccp-1.0.12.tgz#5f3ae2635963e3d01ffefd447bb9ac8169e2dce6"
-  integrity sha512-7SVagwVBWCbGu/9ny135WL97nPr45t9I0Oh27tNfMoBoq9xZG4WYhPDYAF6NlVxWS/dDsqa3sg262F7Fh03zig==
+aws-ccp@1.0.15:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/aws-ccp/-/aws-ccp-1.0.15.tgz#0fa558428e3e7eca70c3ce2d6a8b1999e8b6e089"
+  integrity sha512-sMlJTWTKwiCok7L3F+kCYoXmCfjUOrq5X5/7jY+lKLno65Ei8DOXbvg6soX7hT65hAagOygMvBJdORnPXbM6JA==
   dependencies:
     "@babel/runtime" "^7.10.5"
     amazon-connect-streams "^1.4.9"
