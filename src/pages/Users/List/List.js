@@ -130,15 +130,30 @@ const List = ({ list, loading, fetchUsers, update }) => {
 
   const onNumberChange = e => {
     setNumber(e.target.value);
-  }
+  };
 
   const call = () => {
-    CCPWrapper.call(number);
+    CCPWrapper.call(number)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => console.log(error));
   };
 
   useEffect(() => {
     if (CCPWrapper) {
-      CCPWrapper.init();
+      const config = {
+        ccpUrl: "https://pak-venture.awsapps.com/connect/ccp-v2/",
+        loginPopup: true,
+        loginPopupAutoClose: true,
+        region: 'eu-central-1',
+        softphone: {
+          allowFramedSoftphone: true,
+          disableRingtone: false,
+          ringtoneUrl: './ringtone.mp3'
+        }
+      };
+      CCPWrapper.init(config);
     }
   }, []);
 
@@ -146,7 +161,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
     <div className="container page users-list-page">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>Amazone Conect Contact Panel Integration</div>
-        <input value={} onChange={} />
+        <input type="text" value={number} onChange={onNumberChange} />
         <button onClick={call}>Call</button>
         <button onClick={CCPWrapper.show}>Show CCP</button>
         {/* <div>
