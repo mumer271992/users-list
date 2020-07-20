@@ -126,6 +126,10 @@ const List = ({ list, loading, fetchUsers, update }) => {
   //   console.log("Running...");
   // }, []);
 
+  const call = () => {
+    CCPWrapper.call('+923044454084');
+  };
+
   useEffect(() => {
     if (CCPWrapper) {
       CCPWrapper.init();
@@ -136,6 +140,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
     <div className="container page users-list-page">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>Amazone Conect Contact Panel Integration</div>
+        <button onClick={call}>Call</button>
         <button onClick={CCPWrapper.show}>Show CCP</button>
         {/* <div>
           <button onClick={init} style={{display: active ? "none" : "block", width:320}}>Login to AWS Connect</button>
