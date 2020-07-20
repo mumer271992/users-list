@@ -126,8 +126,14 @@ const List = ({ list, loading, fetchUsers, update }) => {
   //   console.log("Running...");
   // }, []);
 
+  const [number, setNumber] = useState('');
+
+  const onNumberChange = e => {
+    setNumber(e.target.value);
+  }
+
   const call = () => {
-    CCPWrapper.call('+923044454084');
+    CCPWrapper.call(number);
   };
 
   useEffect(() => {
@@ -140,6 +146,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
     <div className="container page users-list-page">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <div>Amazone Conect Contact Panel Integration</div>
+        <input value={} onChange={} />
         <button onClick={call}>Call</button>
         <button onClick={CCPWrapper.show}>Show CCP</button>
         {/* <div>
