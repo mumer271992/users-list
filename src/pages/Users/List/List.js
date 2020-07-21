@@ -134,7 +134,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
 
   const call = () => {
     console.log(number);
-    CCPWrapper.call(number, () => console.log("Call ended from call back"))
+    CCPWrapper.call(number)
       .then(res => {
         console.log(res);
       })
