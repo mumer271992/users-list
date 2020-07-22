@@ -171,7 +171,7 @@ const List = ({ list, loading, fetchUsers, update }) => {
       </div>
       <iframe
         title="aws-login"
-        src="https://pak-venture.awsapps.com/connect/login"
+        src="https://pak-venture.awsapps.com/connect/ccp-v2/"
         height="400"
         width="400"
         frameBorder="0"
