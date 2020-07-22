@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes, { func } from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import CCPWrapper from 'aws-ccp';
-
+// import CCPWrapper from 'aws-ccp';
 // import UsersList from '../../../components/UsersList/UsersList';
 // import Loader from '../../../components/Loader/Loader';
 
@@ -134,29 +133,29 @@ const List = ({ list, loading, fetchUsers, update }) => {
 
   const call = () => {
     console.log(number);
-    CCPWrapper.call(number)
-      .then(res => {
-        console.log(res);
-      })
-      .catch(error => console.log(error));
+    // CCPWrapper.call(number)
+    //   .then(res => {
+    //     console.log(res);
+    //   })
+    //   .catch(error => console.log(error));
   };
 
-  useEffect(() => {
-    if (CCPWrapper) {
-      const config = {
-        ccpUrl: "https://pak-venture.awsapps.com/connect/ccp-v2/",
-        loginPopup: true,
-        loginPopupAutoClose: true,
-        region: 'eu-central-1',
-        softphone: {
-          allowFramedSoftphone: true,
-          disableRingtone: false,
-          ringtoneUrl: './ringtone.mp3'
-        }
-      };
-      CCPWrapper.init(config);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (CCPWrapper) {
+  //     const config = {
+  //       ccpUrl: "https://pak-venture.awsapps.com/connect/ccp-v2/",
+  //       loginPopup: true,
+  //       loginPopupAutoClose: true,
+  //       region: 'eu-central-1',
+  //       softphone: {
+  //         allowFramedSoftphone: true,
+  //         disableRingtone: false,
+  //         ringtoneUrl: './ringtone.mp3'
+  //       }
+  //     };
+  //     CCPWrapper.init(config);
+  //   }
+  // }, []);
 
   return (
     <div className="container page users-list-page">
@@ -164,12 +163,20 @@ const List = ({ list, loading, fetchUsers, update }) => {
         <div>Amazone Conect Contact Panel Integration</div>
         <input type="text" value={number} onChange={onNumberChange} />
         <button onClick={call}>Call</button>
-        <button onClick={CCPWrapper.show}>Show CCP</button>
+        {/* <button onClick={CCPWrapper.show}>Show CCP</button> */}
         {/* <div>
           <button onClick={init} style={{display: active ? "none" : "block", width:320}}>Login to AWS Connect</button>
           <button onClick={initCall} style={{ display: active ? "block" : "none" }}>Call to Customer</button>
         </div> */}
       </div>
+      <iframe
+        title="aws-login"
+        src="https://pak-venture.awsapps.com/connect/login"
+        height="400"
+        width="400"
+        frameBorder="0"
+        name="cake"
+      />
       {/* <div id="containerDiv" style={{ width: '400px', height: '560px', margin: 'auto', display: active ? "block" : "none" }} /> */}
       {/* <div className="d-flex justify-content-between align-items-center mb-4">
         <h3>UsersList</h3>
