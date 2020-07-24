@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes, { func } from 'prop-types';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import CCPWrapper from 'aws-ccp';
 // import UsersList from '../../../components/UsersList/UsersList';
 // import Loader from '../../../components/Loader/Loader';
