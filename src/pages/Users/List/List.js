@@ -153,7 +153,10 @@ const List = ({ list, loading, fetchUsers, update }) => {
           ringtoneUrl: './ringtone.mp3'
         }
       };
-      CCPWrapper.init(config);
+      const configURL =
+        'https://scania-connect-config.s3.eu-west-2.amazonaws.com/config.json';
+      console.log(CCPWrapper);
+      CCPWrapper.init(configURL, {});
     }
   }, []);
 
